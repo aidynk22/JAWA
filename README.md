@@ -1,2 +1,2 @@
-# JAWA
-## Multithreaded Web Crawler
+# Project Title: JAWA
+## Project Idea: Multithreaded Web Crawler
