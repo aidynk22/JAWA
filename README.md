@@ -36,7 +36,7 @@ To compile and run the web crawler:
    - On Windows (using MSYS2): `pacman -S mingw-w64-x86_64-curl`
    - On Ubuntu/Debian: `sudo apt-get install libcurl4-openssl-dev`
 
-2. Compile the code:
+2. Compile the code (if the code is not already compiled (check the current directory for "web_crawler")):
    ```sh
    g++ -o web_crawler web_crawler.cpp -lcurl -pthread
    ```
