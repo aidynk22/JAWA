@@ -1,4 +1,10 @@
-# Project Title: JAWA (Multithreaded Web Crawler in C++)
+# JAWA (Multithreaded Web Crawler in C++)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Quick Links
+- [Installation Guide](#installation-guide)
+- [Usage Guide](#usage-guide)
+- [Troubleshooting](#troubleshooting)
 
 ## Contributors
 - Jannet D.
@@ -17,51 +23,152 @@ JAWA is a multithreaded web crawler implemented in C++ for an Operating Systems 
 - Maintains a thread-safe queue to store URLs to be crawled
 - Supports a configurable number of worker threads and crawl duration
 
-## Inputs
-The program takes the following inputs from the user:
-1. Starting URL: The initial URL from which the crawling begins.
-2. Number of threads: The number of worker threads to use for crawling (1 to the number of hardware threads).
-3. Crawl duration: The duration in seconds for which the crawler should run.
+## Installation Guide
 
-## Outputs
-The program outputs the following:
-1. Real-time progress: As the crawler runs, it displays the number of pages processed, the current queue size, and the remaining time.
-2. Crawled URLs: Each URL successfully crawled is printed to the console.
-3. Final statistics: After the crawl completes, the total number of pages processed is displayed.
+### Prerequisites
 
-## Usage
-To compile and run the web crawler:
+#### Windows (Using MSYS2)
+```bash
+# 1. Download and install MSYS2 from https://www.msys2.org
 
-1. Install libcurl:
-   - On Windows (using MSYS2): `pacman -S mingw-w64-x86_64-curl`
-   - On Ubuntu/Debian: `sudo apt-get install libcurl4-openssl-dev`
+# 2. Open MSYS2 terminal and update
+pacman -Syu
 
-2. Compile the code (if the code is not already compiled (check the current directory for "web_crawler")):
-   ```sh
-   g++ -o web_crawler web_crawler.cpp -lcurl -pthread
-   ```
+# 3. Install required packages
+pacman -S mingw-w64-x86_64-gcc
+pacman -S mingw-w64-x86_64-curl
+pacman -S mingw-w64-x86_64-cmake
+pacman -S make
 
-3. Run the executable:
-   ```sh
-   ./web_crawler
-   ```
+# 4. Add MSYS2 to PATH (if not already done)
+# Add this to your PATH environment variable:
+# C:\msys64\mingw64\bin
+```
 
-4. Enter the starting URL, number of threads, and crawl duration when prompted.
+#### Linux (Ubuntu/Debian)
+```bash
+# Update package list
+sudo apt update
 
-The crawler will start running and display progress in real-time. After the specified duration, it will stop and display the final statistics.
+# Install required packages
+sudo apt install g++
+sudo apt install libcurl4-openssl-dev
+sudo apt install cmake
+sudo apt install make
+```
 
-## Code Structure
-The code is organized into the following main components:
-- `URLQueue`: A thread-safe queue to store URLs to be crawled.
-- `WebCrawler`: The main crawler class that manages worker threads and performs the crawling.
-- `main`: The entry point of the program that handles user input and starts the crawler.
+#### macOS
+```bash
+# Install Homebrew if not installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-The code utilizes C++20 features and requires a compatible compiler.
+# Install required packages
+brew install gcc
+brew install curl
+brew install cmake
+```
 
-## Dependencies
-- libcurl: For making HTTP requests.
-- C++20 standard library: For threading, synchronization, and I/O operations.
+### Building the Project
 
-```sh
-g++ -o web_crawler [web_crawler.cpp](http://_vscodecontentref_/1) -lcurl -pthread
+1. Clone the repository:
+```bash
+git clone https://github.com/aidynk22/JAWA.git
+cd JAWA
+```
+
+2. Create and build:
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+## Usage Guide
+
+### Running the Program
+```bash
 ./web_crawler
+```
+
+### Program Configuration
+The program will prompt for three inputs:
+
+1. **Starting URL**
+```
+Enter URL to crawl: https://example.com
+```
+- Must start with http:// or https://
+- Should be a valid, accessible URL
+
+2. **Thread Count**
+```
+Enter number of threads (1-X): 4
+```
+- X is your CPU's thread count
+- Recommended: Start with 2-4 threads
+- Don't exceed available CPU threads
+
+3. **Duration**
+```
+Enter crawl duration in seconds: 30
+```
+- Recommended: Start with 30 seconds
+- Can be increased for longer crawls
+
+### Output Format
+```
+Starting crawler with 4 threads for 30 seconds...
+
+Crawled: https://example.com
+Crawled: https://example.com/page1
+...
+
+Pages processed: 10 | Queue size: 25 | Time remaining: 20s
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Compilation Errors**
+- curl.h not found: Install libcurl development package
+- Compiler errors: Ensure C++20 compatible compiler
+- Build errors: Check CMAKE configuration
+
+2. **Runtime Issues**
+- "Unable to connect": Check internet connection
+- "Invalid URL": Verify URL format
+- "Thread creation failed": Reduce thread count
+
+### VS Code Setup
+If using VS Code:
+1. Install C/C++ extension
+2. Configure c_cpp_properties.json
+3. Set up build tasks
+4. Use C++20 standard
+
+## Project Structure
+```
+JAWA/
+├── web_crawler.cpp    # Main source code
+├── README.md         # Project documentation
+├── .vscode/          # VS Code configuration
+│   └── c_cpp_properties.json
+└── build/           # Compiled binaries
+```
+
+## Performance Tips
+- Use SSD for better I/O performance
+- Close resource-heavy applications
+- Ensure stable internet connection
+- Monitor system resource usage
+
+## Support
+- Open issues on GitHub: https://github.com/aidynk22/JAWA/issues
+- Include error messages and system details
+- Describe steps to reproduce issues
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+```
