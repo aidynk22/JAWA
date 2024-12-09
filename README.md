@@ -1,7 +1,21 @@
 # JAWA (Multithreaded Web Crawler in C++)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Quick Start
+```bash
+# Clone repository
+git clone https://github.com/aidynk22/JAWA.git
+cd JAWA
+
+# Compile (Linux/macOS)
+g++ -std=c++20 web_crawler.cpp -lcurl -pthread -o crawler
+
+# Run
+./crawler
+```
+
 ## Quick Links
+- [Requirements](#requirements)
 - [Installation Guide](#installation-guide)
 - [Usage Guide](#usage-guide)
 - [Troubleshooting](#troubleshooting)
@@ -23,11 +37,20 @@ JAWA is a multithreaded web crawler implemented in C++ for an Operating Systems 
 - Maintains a thread-safe queue to store URLs to be crawled
 - Supports a configurable number of worker threads and crawl duration
 
+## Requirements
+- C++20 compatible compiler
+- libcurl library
+- Active internet connection
+- Minimum 1GB RAM recommended
+- Terminal/Command Prompt access
+
 ## Installation Guide
 
 ### Prerequisites
 
-#### Windows (Using MSYS2)
+#### Option 1: Direct Installation of Required Packages
+
+##### Windows (Using MSYS2)
 ```bash
 # 1. Download and install MSYS2 from https://www.msys2.org
 
@@ -35,60 +58,58 @@ JAWA is a multithreaded web crawler implemented in C++ for an Operating Systems 
 pacman -Syu
 
 # 3. Install required packages
-pacman -S mingw-w64-x86_64-gcc
-pacman -S mingw-w64-x86_64-curl
-pacman -S mingw-w64-x86_64-cmake
-pacman -S make
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-curl
 
-# 4. Add MSYS2 to PATH (if not already done)
+# 4. Add to PATH (if not already done)
 # Add this to your PATH environment variable:
 # C:\msys64\mingw64\bin
 ```
 
-#### Linux (Ubuntu/Debian)
+##### Linux (Ubuntu/Debian)
 ```bash
-# Update package list
+# Install required packages
 sudo apt update
-
-# Install required packages
-sudo apt install g++
-sudo apt install libcurl4-openssl-dev
-sudo apt install cmake
-sudo apt install make
+sudo apt install g++ libcurl4-openssl-dev
 ```
 
-#### macOS
+##### macOS
 ```bash
-# Install Homebrew if not installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install required packages
-brew install gcc
-brew install curl
-brew install cmake
+# Install required packages using Homebrew
+brew install gcc curl
 ```
 
-### Building the Project
+### Building and Running
 
-1. Clone the repository:
+1. Get the Code
 ```bash
+# Clone the repository
 git clone https://github.com/aidynk22/JAWA.git
 cd JAWA
 ```
 
-2. Create and build:
+2. Compile
 ```bash
-mkdir build
-cd build
-cmake ..
-make
+# Linux/macOS
+g++ -std=c++20 web_crawler.cpp -lcurl -pthread -o crawler
+
+# Windows (MSYS2)
+g++ -std=c++20 web_crawler.cpp -lcurl -pthread -o crawler.exe
+```
+
+Example successful compilation output:
+```bash
+$ g++ -std=c++20 web_crawler.cpp -lcurl -pthread -o crawler
+$ # No output means successful compilation
+$ ls
+crawler  web_crawler.cpp  README.md  LICENSE.md
 ```
 
 ## Usage Guide
 
 ### Running the Program
 ```bash
-./web_crawler
+./crawler    # Linux/macOS
+./crawler.exe  # Windows
 ```
 
 ### Program Configuration
@@ -116,7 +137,7 @@ Enter crawl duration in seconds: 30
 - Recommended: Start with 30 seconds
 - Can be increased for longer crawls
 
-### Output Format
+### Example Output
 ```
 Starting crawler with 4 threads for 30 seconds...
 
@@ -127,6 +148,11 @@ Crawled: https://example.com/page1
 Pages processed: 10 | Queue size: 25 | Time remaining: 20s
 ```
 
+## Known Issues
+1. Some websites may block automated crawling
+2. HTTPS certificates might need manual handling on Windows
+3. Very long crawl durations might consume significant memory
+
 ## Troubleshooting
 
 ### Common Issues
@@ -134,28 +160,20 @@ Pages processed: 10 | Queue size: 25 | Time remaining: 20s
 1. **Compilation Errors**
 - curl.h not found: Install libcurl development package
 - Compiler errors: Ensure C++20 compatible compiler
-- Build errors: Check CMAKE configuration
+- Windows path issues: Verify MSYS2 PATH setup
 
 2. **Runtime Issues**
 - "Unable to connect": Check internet connection
 - "Invalid URL": Verify URL format
 - "Thread creation failed": Reduce thread count
 
-### VS Code Setup
-If using VS Code:
-1. Install C/C++ extension
-2. Configure c_cpp_properties.json
-3. Set up build tasks
-4. Use C++20 standard
-
 ## Project Structure
 ```
 JAWA/
 ├── web_crawler.cpp    # Main source code
 ├── README.md         # Project documentation
-├── .vscode/          # VS Code configuration
-│   └── c_cpp_properties.json
-└── build/           # Compiled binaries
+├── LICENSE.md        # MIT license
+└── .vscode/          # VS Code configuration
 ```
 
 ## Performance Tips
